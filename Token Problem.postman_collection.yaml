@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "c7c731f8-f037-4c80-993f-cb151f5e2b59",
+		"name": "Token Problem",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19227810",
+		"_collection_link": "https://bold-firefly-396060.postman.co/workspace/ACC-PROJECT-WORKSPACES~62ac9d99-57f3-4ec0-8a58-d522d28c184c/collection/19227810-c7c731f8-f037-4c80-993f-cb151f5e2b59?action=share&source=collection_link&creator=19227810"
+	},
+	"item": [
+		{
+			"name": "Health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/token-manager/health-check"
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/token-manager/v1/core/generate"
+			},
+			"response": []
+		},
+		{
+			"name": "Assign Token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/token-manager/v1/core/assign"
+			},
+			"response": []
+		},
+		{
+			"name": "Release Token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\" : \"35eb4ff2-978d-44af-870c-09192fb55d14\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/token-manager/v1/core/release"
+			},
+			"response": []
+		},
+		{
+			"name": "Keep Alive",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\" : \"35eb4ff2-978d-44af-870c-dd09192fb55d14\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/token-manager/v1/core/keep-alive"
+			},
+			"response": []
+		}
+	]
+}
