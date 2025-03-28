@@ -10,8 +10,6 @@
 #### Features
 
 - Typescript Enabled
-- Commitizen for Standard Git Commits
-- PM2 Enabled
 - ENV Sanitizer / Validator
 
 ---
