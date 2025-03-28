@@ -4,6 +4,7 @@ import { get } from "lodash";
 import { TokenLayer } from "services";
 import { uuid } from "uuidv4";
 import { POOL_TYPES , APPLICATION_MESSAGES } from "../../../utils/constants";
+import moment from "moment";
 
 
 const TokenLayerInstance = TokenLayer.getInstance();
@@ -32,7 +33,8 @@ export const generate = async (req: Request, res: Response) => {
 
     const tokensToGenerate = currentCount === 0 ? MAX_TOKENS : (MAX_TOKENS - currentCount);
 
-    const tokens = Array.from({ length: tokensToGenerate }, () => uuid());
+     const timestamp = moment().add(5, "minutes").unix();
+     const tokens: string[] = Array.from({ length: tokensToGenerate }).flatMap(() => [timestamp.toString(), uuid()]);
 
     const generatedTokens = await TokenLayerInstance.injectBulkTokensToPool(
       tokens,
@@ -41,7 +43,7 @@ export const generate = async (req: Request, res: Response) => {
 
     return res.status(StatusCodes.OK).json({
       message: APPLICATION_MESSAGES.TOKENS_GENERATED_SUCCESSFULLY,
-      data: generatedTokens
+      data : generatedTokens
     });
   } catch (error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

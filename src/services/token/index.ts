@@ -113,12 +113,8 @@ class TokenLayer {
     poolType: string
   ): Promise<{ success: boolean; data?: string[]; message?: string }> {
     try {
-      const timestamp = moment().add(5, "minutes").unix();
       const pipeline = this.client.pipeline();
-      pipeline.zadd(
-        poolType,
-        ...tokens.flatMap((eachToken) => [timestamp, eachToken])
-      );
+      pipeline.zadd(poolType, ...tokens);
       await pipeline.exec();
 
       return {
@@ -278,15 +274,10 @@ class TokenLayer {
         const pipeline = this.client.pipeline(); 
         if (expiredAssignedTokens.length) {
           const newExpiryTime = moment().add(4, "minutes").unix();
+          const args = expiredAssignedTokens.flatMap(token => [newExpiryTime, token]);
+          pipeline.zadd(POOL_TYPES.AVAILABLE_TOKENS_POOL, ...args);
+          pipeline.zrem(POOL_TYPES.ASSIGNED_TOKENS_POOL, ...expiredAssignedTokens);
 
-          expiredAssignedTokens.forEach((token) => {
-            pipeline.zadd(
-              POOL_TYPES.AVAILABLE_TOKENS_POOL,
-              newExpiryTime,
-              token
-            );
-            pipeline.zrem(POOL_TYPES.ASSIGNED_TOKENS_POOL, token);
-          });
         }
 
         if (expiredAvailableTokens.length) {
