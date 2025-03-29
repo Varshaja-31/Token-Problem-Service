@@ -1,5 +1,5 @@
 {
-  "name": "tokenservice",
+  "name": "token-service",
   "version": "1.0.0",
   "description": "Token Service with Typescript and ExpressJs.",
   "scripts": {
