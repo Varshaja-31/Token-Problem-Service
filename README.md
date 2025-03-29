@@ -1,4 +1,4 @@
-## Atlas API Manager - Admin Service
+## Token - Manager Service 
 
 #### Prerequisites
 
